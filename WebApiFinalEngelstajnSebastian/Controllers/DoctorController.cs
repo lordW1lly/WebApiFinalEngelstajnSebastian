@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiFinalEngelstajnSebastian.Data;
@@ -51,6 +52,32 @@ namespace WebApiFinalEngelstajnSebastian.Controllers
             return doctor;
 
         }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] Doctor doctor)
+        {
+            if(id != doctor.DoctorId)
+            {
+                BadRequest();
+
+            }
+            _context.Entry(doctor).State = EntityState.Modified ;
+            _context.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpGet("/especialidad/{especialidad}")]
+        public List<Doctor> GetEspecialidad(string especialidad) 
+        {
+            var doctores = (from d in _context.doctores where d.Especialidad == especialidad select d).ToList();
+            return doctores;
+        }
+
+
+
+
+
+
 
 
     }
