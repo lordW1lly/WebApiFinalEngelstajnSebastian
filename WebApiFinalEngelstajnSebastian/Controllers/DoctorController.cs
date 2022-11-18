@@ -66,12 +66,14 @@ namespace WebApiFinalEngelstajnSebastian.Controllers
             return NoContent();
         }
 
-        [HttpGet("/especialidad/{especialidad}")]
-        public List<Doctor> GetEspecialidad(string especialidad) 
+        [HttpGet("especialidad/{especialidad}")]
+        public List<Doctor> Get(string especialidad)
         {
-            var doctores = (from d in _context.doctores where d.Especialidad == especialidad select d).ToList();
-            return doctores;
+            List<Doctor> espDoctor = (from e in _context.doctores where e.Especialidad == especialidad select e).ToList();
+            return espDoctor;
         }
+
+
 
 
 
